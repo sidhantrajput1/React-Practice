@@ -1,101 +1,60 @@
+// const initialFriends = [
+//   {
+//     id: 118836,
+//     name: "Clark",
+//     image: "https://i.pravatar.cc/48?u=118836",
+//     balance: -7,
+//   },
+//   {
+//     id: 933372,
+//     name: "Sarah",
+//     image: "https://i.pravatar.cc/48?u=933372",
+//     balance: 20,
+//   },
+//   {
+//     id: 499476,
+//     name: "Anthony",
+//     image: "https://i.pravatar.cc/48?u=499476",
+//     balance: 0,
+//   },
+// ];
+
 import { useState } from "react";
+import Modal from "./Components/Modal.jsx";
 
-const initialItems = [
-  { id: 1, description: "Passports", quantity: 2, packed: false },
-  { id: 2, description: "Socks", quantity: 12, packed: false },
-
-  { id: 3, description: "Charger", quantity: 15, packed: true },
-];
-
-export default function App() {
+function App() {
+  const [opneModal, setOpenModal] = useState(false);
   return (
-    <div className="app">
-      <Logo />
-      <Form />
-      <PackingList />
-      <Stats />
-    </div>
+    <div className="App">
+      <h1>Hey, Click on the button to open the modal.</h1>
+      <button className="openModalBtn" onClick={() => setOpenModal(true)}>Open</button>
+      {opneModal && <Modal closeModal={setOpenModal} />}
+    </div> 
   );
 }
 
-function Logo() {
-  return <h1>🌴 Far Away 💼</h1>;
-}
+// function App() {
+//   return (
+//     <div className="app">
+//       <div className="sidebar">
+//         <FriendList />
+//       </div>
+//     </div>
+//   )
+// }
 
-function Form() {
-  const [description, setDecription] = useState("");
-  const [quantity, setQuantity] = useState(1);
+// function FriendList() {
+//   const friends = initialFriends;
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    // console.log(e.target.value);
-    if(!description) return;
+//   return (
+//   <ul>{friends.map((friend) => (
+//     <li key={friend.id}>{friend.name}</li>
+//   )) }</ul>
+//   )
+// }
 
-    const newItems = {
-      description, quantity, packed : false, id : Date.now()
-    }
-    console.log(newItems)
+// function Friend ({friend}) {
 
-    setDecription("");
-    setQuantity(1);
-  }
+// }
 
-  return (
-    <form className="add-form" onSubmit={handleSubmit}>
-      <h3>what do you need for your 😊 trip?</h3>
-      <select
-        value={quantity}
-        onChange={(e) => {
-          setQuantity(Number(e.target.value));
-        }}
-      >
-        {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => (
-          <option key={num} value={num}>
-            {num}
-          </option>
-        ))}
-      </select>
-      <input
-        type="text"
-        placeholder="Item..."
-        value={description}
-        onChange={(e) => {
-          // console.log(e.target.value)
-          setDecription(e.target.value);
-        }}
-      />
-      <button>Add</button>
-    </form>
-  );
-}
-
-function PackingList() {
-  return (
-    <div className="list">
-      <ul>
-        {initialItems.map((item) => (
-          <Item item={item} key={item.id} />
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-function Item({ item }) {
-  return (
-    <li>
-      <span style={item.packed ? { textDecoration: "line-through" } : {}}>
-        {item.quantity} {item.description}
-      </span>
-      <button>❌</button>
-    </li>
-  );
-}
-
-function Stats() {
-  return (
-    <footer className="stats">
-      <em>💼 You have X items on your list, and you already packed X (X%) </em>
-    </footer>
-  );
-}
+export default App;
